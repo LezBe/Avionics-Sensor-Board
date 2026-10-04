@@ -1,0 +1,12 @@
+# Normalize text files across Windows/macOS/Linux
+* text=auto
+
+*.md text eol=lf
+*.txt text eol=lf
+*.csv text eol=lf
+*.kicad_pro text eol=lf
+*.kicad_sch text eol=lf
+*.kicad_pcb text eol=lf
+*.kicad_sym text eol=lf
+*.kicad_mod text eol=lf
+*.kicad_dru text eol=lf

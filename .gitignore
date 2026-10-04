@@ -1,0 +1,30 @@
+# KiCad backups
+*-backups/
+*.bak
+*.bck
+
+# KiCad temporary / lock files
+*.tmp
+*.lck
+~*.lck
+
+# KiCad autosave
+_autosave-*
+
+# KiCad local user preferences
+*.kicad_prl
+
+# KiCad history
+.history/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Editors
+.vscode/
+.idea/
+
+# Python
+__pycache__/
+*.pyc
