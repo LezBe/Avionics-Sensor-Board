@@ -18,47 +18,28 @@ This repository is organized so team members can develop and review individual s
 ```text
 Avionics-Sensor-Board/
 ├── hardware/
-│   ├── sensors/
-│   │   ├── bmp581/              # BMP581 pressure sensor design
-│   │   └── _template/           # Template for future sensor modules
-│   ├── power/                   # Power regulation/distribution
-│   ├── communications/          # Shared SPI bus and communication circuitry
-│   └── sensor_board/            # Final integrated KiCad PCB project
-├── libraries/
-│   └── footprints/
-│       └── BMP581/              # BMP581 footprint review/documentation
-├── docs/
-│   ├── architecture/
-│   ├── requirements/
-│   ├── datasheets/
-│   │   └── BMP581.md
-│   └── design_reviews/
-├── manufacturing/
-├── testing/
-└── firmware/
+│   ├── sensors/             # Individual sensor designs
+│   ├── power/               # Power regulation/distribution
+│   ├── communications/      # Shared SPI bus and communication circuitry
+│   └── sensor_board/        # Final integrated KiCad PCB project
+├── libraries/               # Shared KiCad symbols, footprints, and 3D models
+├── docs/                    # Architecture, requirements, datasheets, reviews
+├── manufacturing/           # Gerbers, BOM, pick-and-place, assembly outputs
+├── testing/                 # Bring-up procedures and test results
+└── firmware/                # Hardware-test firmware and sensor drivers
 ```
 
-## Current Sensor Designs
+## Communication Architecture
 
-### BMP581 Barometric Pressure Sensor
+SPI is the board-standard sensor interface.
 
-The BMP581 module is the first sensor design added to this repository.
+Shared bus lines are expected to include:
 
-It currently includes:
+- `SPI_SCK`
+- `SPI_MOSI`
+- `SPI_MISO`
 
-- KiCad schematic
-- KiCad project file
-- Initial PCB file
-- Sensor-specific documentation
-- Bosch datasheet references
-- Footprint verification notes
-- Source traceability back to the original `BMPunit` repository
-
-The BMP581 will communicate with the rest of the avionics system over SPI, consistent with the communication architecture planned for the sensor board.
-
-The original BMP581 schematic references a footprint named `QFN10_BMP581_BOS`, but that footprint file was not committed to the original `BMPunit` repository. The sensor design should therefore **not be treated as fabrication-ready until the BMP581 footprint is added and verified against the Bosch landing pattern**.
-
-See [hardware/sensors/bmp581/README.md](hardware/sensors/bmp581/README.md) for the module details.
+Each SPI peripheral should have its own dedicated chip-select signal. Interrupt lines should be routed separately where required.
 
 ## Recommended Design Flow
 
@@ -79,24 +60,13 @@ See [hardware/sensors/bmp581/README.md](hardware/sensors/bmp581/README.md) for t
 
 | Sensor / Subsystem | Function | Interface | Owner | Schematic | Integrated | Footprint Verified | Tested |
 |---|---|---|---|---|---|---|---|
-| BMP581 | Barometric Pressure / Temperature | SPI | Leziga Beage | Present | No | No | No |
-| Additional Sensor | TBD | SPI | TBD | Not Started | No | N/A | No |
+| Sensor 1 | TBD | SPI | TBD | Not Started | No | N/A | No |
+| Sensor 2 | TBD | SPI | TBD | Not Started | No | N/A | No |
 | Power | Power Distribution | Power | TBD | Not Started | No | N/A | No |
-
-## Communication Architecture
-
-SPI is the board-standard sensor interface. Shared bus lines are expected to include SCK, MOSI, and MISO, with a separate chip-select line for each SPI peripheral. Interrupt signals may also be routed separately where required.
-
-## BMP581 References
-
-- Sensor design: [hardware/sensors/bmp581/](hardware/sensors/bmp581/)
-- Datasheet notes: [docs/datasheets/BMP581.md](docs/datasheets/BMP581.md)
-- Footprint review notes: [libraries/footprints/BMP581/README.md](libraries/footprints/BMP581/README.md)
-- Original-source record: [hardware/sensors/bmp581/SOURCE.md](hardware/sensors/bmp581/SOURCE.md)
 
 ## Branching
 
-Do not make major hardware changes directly on `main`.
+Keep sensor-specific work on feature branches until it is ready for review.
 
 Suggested branch names:
 
@@ -109,12 +79,6 @@ fix/<short-description>
 docs/<short-description>
 ```
 
-Example:
-
-```bash
-git checkout -b feature/bmp581
-```
-
-Open a pull request when the circuit is ready for team review.
+Open a pull request when a design is ready for team review.
 
 See [CONTRIBUTING.md](CONTRIBUTING.md) for the team workflow.
