@@ -4,7 +4,7 @@
 
 This document describes how individual sensor modules fit into the shared avionics sensor board and interface with the flight computer / STM32.
 
-## High-Level Architecture
+## Current High-Level Architecture
 
 ```text
                     +----------------------+
@@ -19,11 +19,12 @@ This document describes how individual sensor modules fit into the shared avioni
        +--------v-----------------------------v--------+
        |                SENSOR BOARD                   |
        |                                               |
-       |   +----------------+     +----------------+   |
-       |   |    Sensor 1    |     |    Sensor 2    |   |
-       |   +-------+--------+     +-------+--------+   |
-       |           |                      |            |
-       |           +------ Shared SPI ----+            |
+       |   +------------------+   +----------------+   |
+       |   |   LSM6DSO32     |   | Future Sensor  |   |
+       |   |  6-Axis IMU     |   |     Module     |   |
+       |   +--------+---------+   +-------+--------+   |
+       |            |                     |            |
+       |            +----- Shared SPI ----+            |
        |                                               |
        |      SCK / MOSI / MISO + Per-Device CS       |
        +-----------------------------------------------+
@@ -41,8 +42,16 @@ Expected topology:
 - dedicated chip-select for each sensor;
 - optional dedicated interrupt lines.
 
-This allows multiple sensors to share one SPI peripheral on the STM32 while remaining individually selectable.
+## LSM6DSO32 Module
+
+The LSM6DSO32 is planned to provide 3-axis acceleration and 3-axis angular-rate measurements.
+
+Its documentation is in:
+
+`hardware/sensors/lsm6dso32/`
+
+Before integration, the team must create/review the KiCad schematic, verify the LGA-14 footprint, assign the chip-select and interrupt lines, and define how the IMU X/Y/Z axes map to the airframe coordinate system.
 
 ## Future Integration
 
-Each sensor should be developed on its own feature branch, reviewed, and then merged into the integrated board design when ready.
+Additional sensor modules should follow the same modular structure and use the shared SPI architecture where supported.

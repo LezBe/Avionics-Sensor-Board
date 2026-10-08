@@ -18,16 +18,35 @@ This repository is organized so team members can develop and review individual s
 ```text
 Avionics-Sensor-Board/
 ├── hardware/
-│   ├── sensors/             # Individual sensor designs
-│   ├── power/               # Power regulation/distribution
-│   ├── communications/      # Shared SPI bus and communication circuitry
-│   └── sensor_board/        # Final integrated KiCad PCB project
-├── libraries/               # Shared KiCad symbols, footprints, and 3D models
-├── docs/                    # Architecture, requirements, datasheets, reviews
-├── manufacturing/           # Gerbers, BOM, pick-and-place, assembly outputs
-├── testing/                 # Bring-up procedures and test results
-└── firmware/                # Hardware-test firmware and sensor drivers
+│   ├── sensors/
+│   │   ├── lsm6dso32/           # LSM6DSO32 IMU design/documentation
+│   │   └── _template/           # Template for future sensor modules
+│   ├── power/
+│   ├── communications/
+│   └── sensor_board/
+├── libraries/
+│   └── footprints/
+│       └── LSM6DSO32/
+├── docs/
+│   ├── architecture/
+│   ├── requirements/
+│   ├── datasheets/
+│   │   └── LSM6DSO32.md
+│   └── design_reviews/
+├── manufacturing/
+├── testing/
+└── firmware/
 ```
+
+## Current Sensor Design
+
+### LSM6DSO32 6-Axis IMU
+
+The LSM6DSO32 is planned as the board's inertial sensor, providing 3-axis acceleration and 3-axis angular-rate measurements.
+
+This branch contains design documentation, official ST references, SPI integration requirements, and footprint-review guidance. A KiCad schematic has not yet been created or imported.
+
+See [hardware/sensors/lsm6dso32/README.md](hardware/sensors/lsm6dso32/README.md).
 
 ## Communication Architecture
 
@@ -41,44 +60,22 @@ Shared bus lines are expected to include:
 
 Each SPI peripheral should have its own dedicated chip-select signal. Interrupt lines should be routed separately where required.
 
-## Recommended Design Flow
-
-1. Develop each sensor circuit in its own folder under `hardware/sensors/`.
-2. Document the sensor supply, SPI signals, supporting circuitry, and owner.
-3. Run a peer schematic review.
-4. Verify custom symbols and footprints against manufacturer documentation.
-5. Integrate the approved design into `hardware/sensor_board/`.
-6. Perform ERC and design-rule checks.
-7. Assign and verify footprints.
-8. Complete PCB layout.
-9. Perform a PCB design review.
-10. Generate manufacturing outputs.
-11. Assemble and complete board bring-up.
-12. Store test results under `testing/`.
-
 ## Sensor Status
 
 | Sensor / Subsystem | Function | Interface | Owner | Schematic | Integrated | Footprint Verified | Tested |
 |---|---|---|---|---|---|---|---|
-| Sensor 1 | TBD | SPI | TBD | Not Started | No | N/A | No |
-| Sensor 2 | TBD | SPI | TBD | Not Started | No | N/A | No |
+| LSM6DSO32 | 6-Axis IMU | SPI | TBD | Pending | No | No | No |
+| Additional Sensor | TBD | SPI | TBD | Not Started | No | N/A | No |
 | Power | Power Distribution | Power | TBD | Not Started | No | N/A | No |
+
+## LSM6DSO32 References
+
+- Sensor documentation: [hardware/sensors/lsm6dso32/](hardware/sensors/lsm6dso32/)
+- Datasheet notes: [docs/datasheets/LSM6DSO32.md](docs/datasheets/LSM6DSO32.md)
+- Footprint review: [libraries/footprints/LSM6DSO32/README.md](libraries/footprints/LSM6DSO32/README.md)
 
 ## Branching
 
 Keep sensor-specific work on feature branches until it is ready for review.
-
-Suggested branch names:
-
-```text
-feature/<sensor-name>
-feature/power
-feature/interfaces
-feature/pcb-layout
-fix/<short-description>
-docs/<short-description>
-```
-
-Open a pull request when a design is ready for team review.
 
 See [CONTRIBUTING.md](CONTRIBUTING.md) for the team workflow.

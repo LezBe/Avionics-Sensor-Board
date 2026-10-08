@@ -2,19 +2,23 @@
 
 Each sensor should have its own directory so team members can develop, review, and document sensor circuits independently before they are integrated into the final board.
 
-## Recommended Structure
+## Current Sensor on This Branch
 
 ```text
 sensors/
-├── <sensor-name>/
-│   ├── README.md
-│   ├── <sensor>.kicad_sch
-│   └── supporting project files
+├── lsm6dso32/
+│   └── README.md
 └── _template/
     └── README.md
 ```
 
-## Adding a Sensor
+## LSM6DSO32
+
+The LSM6DSO32 folder contains design and integration documentation for the planned 6-axis IMU.
+
+No KiCad schematic has been committed yet. The next hardware step is to create or import a reviewed SPI schematic and then add the verified LGA-14 footprint.
+
+## Adding Another Sensor
 
 1. Copy `_template/README.md` into a new sensor directory.
 2. Add the sensor's KiCad schematic and supporting project files.
