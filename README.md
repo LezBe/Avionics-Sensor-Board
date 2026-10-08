@@ -18,40 +18,75 @@ This repository is organized so team members can develop and review individual s
 ```text
 Avionics-Sensor-Board/
 ├── hardware/
-│   ├── sensors/             # Individual sensor designs
-│   ├── power/               # Power regulation/distribution
-│   ├── communications/      # Shared buses and communication circuitry
-│   └── sensor_board/        # Final integrated KiCad PCB project
-├── libraries/               # Shared KiCad symbols, footprints, and 3D models
-├── docs/                    # Architecture, requirements, datasheets, reviews
-├── manufacturing/           # Gerbers, BOM, pick-and-place, assembly outputs
-├── testing/                 # Bring-up procedures and test results
-└── firmware/                # Hardware-test firmware and sensor drivers
+│   ├── sensors/
+│   │   ├── bmp581/              # BMP581 pressure sensor design
+│   │   └── _template/           # Template for future sensor modules
+│   ├── power/                   # Power regulation/distribution
+│   ├── communications/          # Shared buses and communication circuitry
+│   └── sensor_board/            # Final integrated KiCad PCB project
+├── libraries/
+│   └── footprints/
+│       └── BMP581/              # BMP581 footprint review/documentation
+├── docs/
+│   ├── architecture/
+│   ├── requirements/
+│   ├── datasheets/
+│   │   └── BMP581.md
+│   └── design_reviews/
+├── manufacturing/
+├── testing/
+└── firmware/
 ```
+
+## Current Sensor Designs
+
+### BMP581 Barometric Pressure Sensor
+
+The BMP581 module is the first sensor design added to this repository.
+
+It currently includes:
+
+- KiCad schematic
+- KiCad project file
+- Initial PCB file
+- Sensor-specific documentation
+- Bosch datasheet references
+- Footprint verification notes
+- Source traceability back to the original `BMPunit` repository
+
+The original BMP581 schematic references a footprint named `QFN10_BMP581_BOS`, but that footprint file was not committed to the original `BMPunit` repository. The sensor design should therefore **not be treated as fabrication-ready until the BMP581 footprint is added and verified against the Bosch landing pattern**.
+
+See [hardware/sensors/bmp581/README.md](hardware/sensors/bmp581/README.md) for the module details.
 
 ## Recommended Design Flow
 
 1. Develop each sensor circuit in its own folder under `hardware/sensors/`.
 2. Document the sensor supply, interface, supporting circuitry, and owner.
 3. Run a peer schematic review.
-4. Integrate the approved design into `hardware/sensor_board/`.
-5. Perform ERC and design-rule checks.
-6. Assign and verify footprints.
-7. Complete PCB layout.
-8. Perform a PCB design review.
-9. Generate manufacturing outputs.
-10. Assemble and complete board bring-up.
-11. Store test results under `testing/`.
+4. Verify custom symbols and footprints against manufacturer documentation.
+5. Integrate the approved design into `hardware/sensor_board/`.
+6. Perform ERC and design-rule checks.
+7. Assign and verify footprints.
+8. Complete PCB layout.
+9. Perform a PCB design review.
+10. Generate manufacturing outputs.
+11. Assemble and complete board bring-up.
+12. Store test results under `testing/`.
 
 ## Sensor Status
 
-| Sensor / Subsystem | Function | Interface | Owner | Schematic | Integrated | Tested |
-|---|---|---|---|---|---|---|
-| Sensor 1 | TBD | TBD | TBD | Not Started | No | No |
-| Sensor 2 | TBD | TBD | TBD | Not Started | No | No |
-| Power | Power Distribution | Power | TBD | Not Started | No | No |
+| Sensor / Subsystem | Function | Interface | Owner | Schematic | Integrated | Footprint Verified | Tested |
+|---|---|---|---|---|---|---|---|
+| BMP581 | Barometric Pressure / Temperature | I2C | Leziga Beage | Present | No | No | No |
+| Additional Sensor | TBD | TBD | TBD | Not Started | No | N/A | No |
+| Power | Power Distribution | Power | TBD | Not Started | No | N/A | No |
 
-Update this table as designs are added.
+## BMP581 References
+
+- Sensor design: [hardware/sensors/bmp581/](hardware/sensors/bmp581/)
+- Datasheet notes: [docs/datasheets/BMP581.md](docs/datasheets/BMP581.md)
+- Footprint review notes: [libraries/footprints/BMP581/README.md](libraries/footprints/BMP581/README.md)
+- Original-source record: [hardware/sensors/bmp581/SOURCE.md](hardware/sensors/bmp581/SOURCE.md)
 
 ## Branching
 
@@ -71,7 +106,7 @@ docs/<short-description>
 Example:
 
 ```bash
-git checkout -b feature/bmp390
+git checkout -b feature/bmp581
 ```
 
 Open a pull request when the circuit is ready for team review.
