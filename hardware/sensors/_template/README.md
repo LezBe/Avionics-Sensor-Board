@@ -15,16 +15,24 @@
 
 **Supply Voltage:**  
 **Typical Current:**  
-**Interface:** I2C / SPI / UART / Analog / Other  
+**Interface:** SPI (board standard) / Other  
 **Logic Level:**  
+
+## SPI Signals
+
+If the device uses the board-standard SPI interface, document:
+
+| Signal | Device Pin | Shared / Dedicated | Notes |
+|---|---|---|---|
+| SCK | | Shared | |
+| MOSI | | Shared | |
+| MISO | | Shared | |
+| CS | | Dedicated | |
+| INT | | Dedicated if used | |
 
 ## Signals
 
-| Signal | Direction | Destination | Notes |
-|---|---|---|---|
-| VCC | Input | Power rail | |
-| GND | Power | Ground | |
-| | | | |
+Document any additional power, reset, enable, interrupt, analog, or auxiliary signals.
 
 ## Supporting Circuitry
 
@@ -32,7 +40,7 @@ Document decoupling, pull resistors, filtering, level shifting, protection, and 
 
 ## MCU / Flight-Computer Interface
 
-Document intended controller pins, connector pins, bus assignment, or net names.
+Document intended controller pins, SPI bus assignment, chip-select assignment, connector pins, and net names.
 
 ## Datasheet
 
@@ -40,7 +48,7 @@ Store the datasheet under `docs/datasheets/`.
 
 ## Design Decisions
 
-Record important reasoning such as decoupling selection, bus choice, interrupt usage, address configuration, and power-up requirements.
+Record important reasoning such as decoupling selection, SPI mode/timing, chip-select behavior, interrupt usage, and power-up requirements.
 
 ## Status
 
