@@ -1,0 +1,4 @@
+(fp_lib_table
+	(version 7)
+	(lib (name "LSM6DSO32TR") (type "KiCad") (uri "C:/Users/Yus/Downloads/LSM6DSO32TR/LSM6DSO32TR.pretty") (options "") (descr ""))
+)
